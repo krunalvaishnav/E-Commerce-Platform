@@ -1,0 +1,60 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum CouponType {
+  PERCENTAGE
+  FLAT
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  password  String
+  country   String
+  createdAt DateTime @default(now())
+
+  wallet    Wallet?
+
+  @@index([country])
+}
+
+model Product {
+  id        Int      @id @default(autoincrement())
+  name      String
+  priceINR  Int
+  stock     Int
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+
+  @@index([isActive])
+}
+
+model Coupon {
+  id         Int         @id @default(autoincrement())
+  code       String      @unique
+  type       CouponType
+  value      Int
+  expiry     DateTime
+  usageLimit Int
+  usedCount  Int         @default(0)
+  createdAt  DateTime    @default(now())
+
+  @@index([expiry])
+}
+
+model Wallet {
+  id      Int   @id @default(autoincrement())
+  userId  Int   @unique
+  balance Int   @default(0)
+
+  user    User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([balance])
+}
+

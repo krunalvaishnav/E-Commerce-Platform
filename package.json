@@ -1,0 +1,39 @@
+{
+  "name": "e-commerce-checkout-preview-api",
+  "version": "1.0.0",
+  "description": "Production-ready backend for an E-Commerce Checkout Preview API using Node.js, Express, PostgreSQL, and Prisma.",
+  "main": "src/server.js",
+  "scripts": {
+    "server": "nodemon src/server.js",
+    "start": "node src/server.js",
+    "prisma:migrate": "prisma migrate dev --name init",
+    "prisma:generate": "prisma generate",
+    "prisma:deploy": "prisma migrate deploy",
+    "prisma:seed": "prisma db seed"
+  },
+  "keywords": [
+    "node",
+    "express",
+    "prisma",
+    "postgresql",
+    "e-commerce",
+    "checkout"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@prisma/client": "^6.0.0",
+    "bcrypt": "^5.1.1",
+    "dotenv": "^16.4.0",
+    "express": "^4.19.0",
+    "joi": "^17.13.3",
+    "jsonwebtoken": "^9.0.3"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0",
+    "prisma": "^6.0.0"
+  },
+  "prisma": {
+    "seed": "node prisma/seed.js"
+  }
+}
